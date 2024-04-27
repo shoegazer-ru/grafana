@@ -1,0 +1,22 @@
+version: "3"
+name: grafana
+
+services:
+    grafana_shoegazer:
+        container_name: grafana_shoegazer
+        build: .
+        networks:
+            - docker_default
+        ports:
+          - 7200:3000
+        volumes:
+            - /etc/localtime:/etc/localtime
+        restart: always
+        environment:
+            - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
+            - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+            - GF_USERS_ALLOW_SIGN_UP=false
+
+networks:
+    docker_default:
+        external: true
